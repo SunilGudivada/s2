@@ -10,6 +10,7 @@ export default function App() {
       <HashRouter>
         <Switch>
           <Route exact path='/' component={Dashboard} />
+          <Route exact path='/dashboard' component={Dashboard} />
           <Route exact path='/standardization' component={Dashboard} />
           <Route exact path='/rules/1' component={Dashboard} />
           <Route exact path='/rules/2' component={Dashboard} />
