@@ -45,14 +45,14 @@ export default function ListItems() {
   };
   return(
   <div>
-    <ListItemLink href="#Dashboard" selected={selectedIndex === 0}
+    <ListItemLink href="/#dashboard" selected={selectedIndex === 0}
           onClick={(event) => handleListItemClick(event, 0)}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" disabled={true}/>
     </ListItemLink>
-    <ListItemLink href="#Standardization" selected={selectedIndex === 1}
+    <ListItemLink href="/#standardization" selected={selectedIndex === 1}
           onClick={(event) => handleListItemClick(event, 1)}>
       <ListItemIcon>
         <AccountTree />
@@ -68,14 +68,14 @@ export default function ListItems() {
       </ListItem>
       <Collapse in={!open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-        <ListItemLink href="#Rules/1" className={classes.nested} selected={selectedIndex === 2}
+        <ListItemLink href="/#rules/1" className={classes.nested} selected={selectedIndex === 2}
           onClick={(event) => handleListItemClick(event, 2)}>
             <ListItemIcon>
               <Category />
             </ListItemIcon>
             <ListItemText primary="Rule 1" />
           </ListItemLink>
-          <ListItemLink href="#Rules/2" className={classes.nested} selected={selectedIndex === 3}
+          <ListItemLink href="/#rules/2" className={classes.nested} selected={selectedIndex === 3}
           onClick={(event) => handleListItemClick(event, 3)}>
             <ListItemIcon>
               <Category />
@@ -84,14 +84,14 @@ export default function ListItems() {
           </ListItemLink>
         </List>
       </Collapse>
-      <ListItemLink href="#Execution" selected={selectedIndex === 4}
+      <ListItemLink href="/#execution" selected={selectedIndex === 4}
           onClick={(event) => handleListItemClick(event, 4)}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Execution" />
     </ListItemLink>
-    <ListItemLink href="#ReviewMatches" selected={selectedIndex === 5}
+    <ListItemLink href="/#reviewMatches" selected={selectedIndex === 5}
           onClick={(event) => handleListItemClick(event, 5)}>
       <ListItemIcon>
         <LayersIcon />
@@ -129,17 +129,17 @@ export const secondaryListItems = (
 export const dummyLinks = (
     <div>
         <ListSubheader inset>Temporary Link</ListSubheader>
-        <ListItemLink href="/SignIn">
+        <ListItemLink href="/#signin">
       <ListItemIcon>
         <AssignmentInd />
       </ListItemIcon>
       <ListItemText primary="Sign In" />
     </ListItemLink>
-    <ListItemLink href="/SignUp">
+    <ListItemLink href="/#signup">
       <ListItemIcon>
         <LockOpen />
       </ListItemIcon>
       <ListItemText primary="Sign Up" />
-    </ListItemLink>
+    </ListItemLink  >
     </div>
 )
