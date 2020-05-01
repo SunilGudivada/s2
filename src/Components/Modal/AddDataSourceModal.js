@@ -165,7 +165,7 @@ export default function SimpleDialogDemo() {
                 />
                 </FormControl>
                 <TextField style={{width:'70%'}} id="outlined-basic" size="small" label="JDBC String" variant="outlined" className={classes.addDataSourceForm}/>
-                
+                <Button href="/" color="primary" onClick={(event)=>event.preventDefault()} className={classes.addDataSourceForm}> Test Connection </Button>
               </CardContent>
               <CardActions style={{margin:'0px 16px 16px 16px'}}>
                 <Button disableElevation variant="outlined" size="large" color="primary" className={classes.button} startIcon={<CheckCircle fontSize="large" />} > Save </Button>
