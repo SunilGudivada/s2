@@ -12,7 +12,7 @@ export default class DefineSource extends Component {
         this.state = {
             noOfFieldsRequired: 1,
             sources: [{
-                type: ''
+                type: 'Database'
             }],
         }
     }
@@ -63,7 +63,7 @@ export default class DefineSource extends Component {
                 <NumberOfSources
                     onNumberInputChange={(event) => this.numberInputHandler(event)}
                     count={noOfFieldsRequired} />
-                <Container  maxWidth="sm">
+                <Container  maxWidth="lg">
                     <Grid container style={{ paddingBottom: '45px' }}>
                         {noOfFieldsRequired > 0 ? this.state.sources.map((value, index) => (
 

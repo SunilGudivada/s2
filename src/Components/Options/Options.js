@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 240,
     },
     selectEmpty: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(0),
+        backgroundColor: 'inherit'
     },
 }));
 
@@ -39,14 +40,14 @@ export default function Options(){
         'Home Address'
     ]
     return (
-        <FormControl required className={classes.formControl}>
-        <InputLabel id="demo-simple-select-required-label">Select Matching Attribute</InputLabel>
+        <FormControl size="small" variant="outlined" className={classes.formControl}>
+        <InputLabel id="demo-simple-select-outlined-label">Select Matching Attribute</InputLabel>
         <Select
-            labelId="demo-simple-select-required-label"
-            id="demo-simple-select-required"
-            value={attribute}
-            onChange={handleChange}
-            className={classes.selectEmpty}
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={attribute}
+          onChange={handleChange}
+          label="Select Matching Attribute"
         >
             <MenuItem value="" disabled>
                 Select Matching Attribute

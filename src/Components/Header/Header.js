@@ -119,7 +119,7 @@ export default function () {
                     <MenuIcon />
                 </IconButton>
                 <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                    Admin Dashboard
+                    S3 Admin Dashboard
           </Typography>
                 <IconButton color="inherit">
                     <Badge badgeContent={4} color="secondary">

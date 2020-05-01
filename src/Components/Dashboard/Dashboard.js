@@ -18,6 +18,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems, {secondaryListItems,dummyLinks} from './listItems';
 import Pipeline from '../Pipeline/Pipeline';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 function Copyright() {
   return (
@@ -32,7 +33,16 @@ function Copyright() {
   );
 }
 
-const drawerWidth = 240;
+const drawerWidth = 200;
+
+const theme = createMuiTheme({
+  typography: {
+    fontSize: 12,
+  },
+  listItemIcon: {
+    minWidth: '34px'
+  },
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,8 +109,10 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(2),
@@ -126,6 +138,7 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <ThemeProvider theme={theme}>
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
@@ -138,7 +151,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Admin Dashboard
+           S3 Admin Dashboard
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -175,6 +188,7 @@ export default function Dashboard() {
           </Box>
         </Container>
       </main>
+      </ThemeProvider>
     </div>
   );
 }

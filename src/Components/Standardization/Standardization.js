@@ -7,8 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
-
-import Options from '../Options/Options'
+import Box from '@material-ui/core/Box';
+import Options from '../Options/Options';
 
 const attrArray = [
     'First Name',
@@ -40,29 +40,38 @@ const useStyles = makeStyles({
     pos: {
         marginBottom: 12,
     },
+    tableCellStyle:{
+        padding:0
+    },
+    tableContainer:{
+
+    }
 });
 
-export default function Standardization() {
+export default function Standardization(props) {
+        
         const classes = useStyles();
         return(<>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                     Standardization of Attributes from Multiple Sources
+                <Typography component={'span'} variant={'body2'}>
+                    <Box textAlign="center" m={1} fontSize="h5.fontSize" style={{fontWeight: 'bold'}}>
+                        Standardization of Attributes from Multiple Sources
+                    </Box>
                 </Typography>
-                <TableContainer>
+                <TableContainer className={classes.tableContainer}>
                     <Table aria-label="simple table">
                       <TableHead>
                         <TableRow>
-                            <TableCell>Standardized Attributes</TableCell>
-                            <TableCell align="right">Source1 Attributes</TableCell>
-                            <TableCell align="right">Source2 Attributes</TableCell>
+                            <TableCell className={classes.tableCellStyle}>Standardized Attributes</TableCell>
+                            <TableCell className={classes.tableCellStyle} align="center">Source1 Attributes</TableCell>
+                            <TableCell className={classes.tableCellStyle} align="center">Source2 Attributes</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         {attrArray.map((value,index) => (
                             <TableRow key={index}>
-                                <TableCell>{value}</TableCell>
-                                <TableCell align="right"><Options /></TableCell>
-                                <TableCell align="right"><Options /></TableCell>
+                                <TableCell className={classes.tableCellStyle}>{value}</TableCell>
+                                <TableCell align="center" className={classes.tableCellStyle}><Options /></TableCell>
+                                <TableCell align="center"className={classes.tableCellStyle}><Options /></TableCell>
                             </TableRow>
 
                         ))}
