@@ -49,14 +49,20 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
+    [theme.breakpoints.up('sm')]:{
+      minHeight:'0!important'
+    }
   },
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: '0 8px',
+    padding: '0 0px',
     ...theme.mixins.toolbar,
+    [theme.breakpoints.up('sm')]:{
+      minHeight:'0!important'
+    }
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,

@@ -16,6 +16,7 @@ export default function App() {
           <Route exact path='/rules/1' component={Dashboard} />
           <Route exact path='/rules/2' component={Dashboard} />
           <Route exact path='/execution' component={Dashboard} />
+          <Route exact path='/reviewMatches' component={Dashboard} />
           <Route exact path='/Pipeline' component={Pipeline} />
           <Route exact path='/signin' component={SignIn} />
           <Route exact path='/signup' component={SignUp} />
