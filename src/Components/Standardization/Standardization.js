@@ -6,8 +6,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 import Options from '../Options/Options'
@@ -46,10 +44,7 @@ const useStyles = makeStyles({
 
 export default function Standardization() {
         const classes = useStyles();
-        return(
-            <React.Fragment>
-                <Card className={classes.root} variant="outlined">
-                <CardContent>
+        return(<>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                      Standardization of Attributes from Multiple Sources
                 </Typography>
@@ -74,8 +69,6 @@ export default function Standardization() {
                       </TableBody>
                     </Table>
                 </TableContainer>
-                </CardContent>
-                </Card>
-            </React.Fragment>
+                </>
         )
     }

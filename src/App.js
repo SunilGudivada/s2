@@ -3,6 +3,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import SignIn from './Components/SignIn/SignIn'
 import SignUp from './Components/SignUp/SignUp'
 import Dashboard from './Components/Dashboard/Dashboard'
+import Pipeline from './Components/Pipeline/Pipeline';
 
 export default function App() {
   return (
@@ -15,7 +16,7 @@ export default function App() {
           <Route exact path='/rules/1' component={Dashboard} />
           <Route exact path='/rules/2' component={Dashboard} />
           <Route exact path='/execution' component={Dashboard} />
-          <Route exact path='/reviewMatches' component={Dashboard} />
+          <Route exact path='/Pipeline' component={Pipeline} />
           <Route exact path='/signin' component={SignIn} />
           <Route exact path='/signup' component={SignUp} />
         </Switch>
