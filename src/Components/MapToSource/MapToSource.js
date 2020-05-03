@@ -38,7 +38,7 @@ function getStepContent(stepIndex) {
   }
 }
 
-export default function Pipeline() {
+export default function MapToSource() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
@@ -64,8 +64,8 @@ export default function Pipeline() {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        // find the first step that has been completed
+        steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -92,54 +92,54 @@ export default function Pipeline() {
 
   return (
     <Card className={classes.root} variant="outlined">
-        <CardContent>
+      <CardContent>
         <Stepper nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => (
-          <Step key={label}>
-            <StepButton onClick={handleStep(index)} completed={completed[index]}>
-              {label}
-            </StepButton>
-          </Step>
-        ))}
-      </Stepper>
-      <div>
-        {allStepsCompleted() ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
-          </div>
-        ) : (
-          <div>
-            <Typography component={'span'} variant={'body2'} className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+          {steps.map((label, index) => (
+            <Step key={label}>
+              <StepButton onClick={handleStep(index)} completed={completed[index]}>
+                {label}
+              </StepButton>
+            </Step>
+          ))}
+        </Stepper>
+        <div>
+          {allStepsCompleted() ? (
             <div>
-              <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                Back
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}
-              >
-                Next
-              </Button>
-              {activeStep !== steps.length &&
-                (completed[activeStep] ? (
-                  <Typography component={'span'} variant="caption" className={classes.completed}>
-                    Step {activeStep + 1} already completed
-                  </Typography>
-                ) : (
-                  // <Button variant="contained" color="primary" onClick={handleComplete}>
-                  //   {completedSteps() === totalSteps() - 1 ? 'Finish' : 'Complete Step'}
-                  // </Button>
-                  " "
-                ))}
+              <Typography className={classes.instructions}>
+                All steps completed - you&apos;re finished
+            </Typography>
+              <Button onClick={handleReset}>Reset</Button>
             </div>
-          </div>
-        )}
-      </div>
+          ) : (
+              <div>
+                <Typography component={'span'} variant={'body2'} className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                <div>
+                  <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                    Back
+              </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    Next
+              </Button>
+                  {activeStep !== steps.length &&
+                    (completed[activeStep] ? (
+                      <Typography component={'span'} variant="caption" className={classes.completed}>
+                        Step {activeStep + 1} already completed
+                      </Typography>
+                    ) : (
+                        // <Button variant="contained" color="primary" onClick={handleComplete}>
+                        //   {completedSteps() === totalSteps() - 1 ? 'Finish' : 'Complete Step'}
+                        // </Button>
+                        " "
+                      ))}
+                </div>
+              </div>
+            )}
+        </div>
       </CardContent >
     </Card>
   );

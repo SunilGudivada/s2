@@ -16,16 +16,16 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import ListItems, {secondaryListItems,dummyLinks} from './listItems';
-import Pipeline from '../Pipeline/Pipeline';
+import ListItems, { secondaryListItems, dummyLinks } from './listItems';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import MapToSource from '../MapToSource/MapToSource'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="/">
-        sample website
+        S3 Admin Dashboard
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     paddingRight: 24,
-    [theme.breakpoints.up('sm')]:{
-      minHeight:'0!important'
+    [theme.breakpoints.up('sm')]: {
+      minHeight: '0!important'
     }
   },
   toolbarIcon: {
@@ -60,8 +60,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     padding: '0 0px',
     ...theme.mixins.toolbar,
-    [theme.breakpoints.up('sm')]:{
-      minHeight:'0!important'
+    [theme.breakpoints.up('sm')]: {
+      minHeight: '0!important'
     }
   },
   appBar: {
@@ -140,60 +140,61 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   return (
     <div className={classes.root}>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-           S3 Admin Dashboard
+        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+              S3 Admin Dashboard
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List><ListItems/></List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-        <Divider />
-        <List>{dummyLinks}</List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-            <Pipeline />
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List><ListItems /></List>
+          <Divider />
+          <List>{secondaryListItems}</List>
+          <Divider />
+          <List>{dummyLinks}</List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+          {window.location.hash === "#/MapToSource"? (
+            <MapToSource />
+          ): ( " ")}
           <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
+              <Copyright />
+            </Box>
+          </Container>
+        </main>
       </ThemeProvider>
     </div>
   );
