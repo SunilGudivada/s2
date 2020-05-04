@@ -45,16 +45,20 @@ const useStyles = makeStyles((theme)=>({
         marginBottom: 12,
     },
     ruleSetName: {
+        fontSize: theme.typography.pxToRem(15),
         color: "grey",
     },
     ruleSetDescription: {
+        fontSize: theme.typography.pxToRem(15),
         color: "grey",
     },
     ruleSetScoreThreshold: {
+        fontSize: theme.typography.pxToRem(15),
         color: "grey",
     },
     aggregationMethod: {
         margin: theme.spacing(1),
+        fontSize: theme.typography.pxToRem(15),
         width: 200,
     },
     addRule:{
@@ -313,7 +317,7 @@ function RuleSet() {
                     </div>
                     <div className={classes.column} >
                         <Typography variant="caption"><b>Matching Method</b><br/> 
-                            Exact Match
+                            Fuzzy
                         </Typography>
                     </div>
                     <div className={classes.column} >
