@@ -19,6 +19,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems, { secondaryListItems, dummyLinks } from './listItems';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import MapToSource from '../MapToSource/MapToSource'
+import RuleSet from '../RuleSet/RuleSet';
 
 function Copyright() {
   return (
@@ -43,7 +44,6 @@ const theme = createMuiTheme({
     minWidth: '34px'
   },
 });
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -115,7 +115,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(2),
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     paddingBottom: theme.spacing(2),
@@ -133,7 +132,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -189,6 +188,8 @@ export default function Dashboard() {
           <Container maxWidth="lg" className={classes.container}>
           {window.location.hash === "#/MapToSource"? (
             <MapToSource />
+          ) : window.location.hash === "#/ruleset/add" ? (
+            <RuleSet />
           ): ( " ")}
           <Box pt={4}>
               <Copyright />

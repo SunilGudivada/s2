@@ -14,6 +14,7 @@ export default function App() {
           <Route exact path='/' component={Dashboard} />
           <Route exact path='/MapToSource' component={Dashboard} />
           <Route exact path='/standardization' component={Dashboard} />
+          <Route exact path='/ruleset/add' component={Dashboard} />
           <Route exact path='/rules/1' component={Dashboard} />
           <Route exact path='/rules/2' component={Dashboard} />
           <Route exact path='/execution' component={Dashboard} />

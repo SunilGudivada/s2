@@ -53,7 +53,7 @@ export default function ListItems() {
       </ListItemIcon>
       <ListItemText primary="Dashboard" disabled={true}/>
     </ListItemLink>
-    <ListItemLink href="#standardization" selected={selectedIndex === 1}
+    <ListItemLink href="#MapToSource" selected={selectedIndex === 1}
           onClick={(event) => handleListItemClick(event, 1)}>
       <ListItemIcon>
         <AccountTree />
