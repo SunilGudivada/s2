@@ -18,7 +18,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="/">
-        S2 
+        S3   
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -57,9 +57,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignIn() {
   const classes = useStyles();
+  const [email,setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const validateSignInDetails = () =>{
+    if(email && email === "demo@s3.io"){
+      if(password === "demo"){
+        localStorage.setItem("user","132416");
+        window.location.reload();
+      }else{
 
+      }
+    }else{
+
+    }
+  }
+
+  const handleEmail = (event) =>{
+    setEmail(event.target.value)
+  }
+
+  const handlePassword = (event) =>{
+    setPassword(event.target.value)
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -83,6 +104,8 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={handleEmail}
             />
             <TextField
               variant="outlined"
@@ -93,6 +116,8 @@ export default function SignInSide() {
               label="Password"
               type="password"
               id="password"
+              value={password}
+              onChange={handlePassword}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -100,11 +125,11 @@ export default function SignInSide() {
               label="Remember me"
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={validateSignInDetails}
             >
               Sign In
             </Button>
@@ -115,10 +140,15 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link href="#/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
+            </Grid><br/>
+            <Grid container>
+              <b>This is a demo application. <br/>Do not send/upload sensitive information. </b><br/>
+              All information submitted is public!<br/>
+              user demo@s3.io/demo is already created for your convenience.
             </Grid>
             <Box mt={5}>
               <Copyright />

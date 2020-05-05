@@ -16,8 +16,9 @@
     "@material-ui/icons": "latest",
     "clsx": "latest",
     "react": "latest",
-    "react-router-dom": "latest",
     "react-dom": "latest",
+    "react-material-timeline": "^3.0.1",
+    "react-router-dom": "latest",
     "react-scripts": "latest"
   },
   "browserslist": {

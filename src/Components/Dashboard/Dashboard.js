@@ -18,8 +18,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems, { secondaryListItems, dummyLinks } from './listItems';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import MapToSource from '../MapToSource/MapToSource'
-import RuleSet from '../RuleSet/RuleSet';
 
 function Copyright() {
   return (
@@ -130,7 +128,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
+  const {
+    RenderComponent
+  }=props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
@@ -186,11 +187,7 @@ export default function Dashboard() {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
-          {window.location.hash === "#/MapToSource"? (
-            <MapToSource />
-          ) : window.location.hash === "#/ruleset/add" ? (
-            <RuleSet />
-          ): ( " ")}
+          <RenderComponent />
           <Box pt={4}>
               <Copyright />
             </Box>
