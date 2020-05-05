@@ -9,6 +9,7 @@ import RuleSet from '../Components/RuleSet/RuleSet';
 
 
 export const RouteNames = {
+    LANDING_PAGE: "LANDING_PAGE",
     DASHBOARD: "DASHBOARD",
     MAP_TO_SOURCE: "MAP_TO_SOURCE",
     SIGN_IN: "SIGN_IN",
@@ -19,6 +20,7 @@ export const RouteNames = {
 
 
 export const RouteUrls = {
+    LANDING_PAGE: "/",
     DASHBOARD: "/dashboard",
     MAP_TO_SOURCE: "/MapToSource",
     SIGN_IN: "/signin",
@@ -28,6 +30,12 @@ export const RouteUrls = {
 }
 
 export const routes = [
+    {
+        name: RouteNames.LANDING_PAGE,
+        path: RouteUrls.LANDING_PAGE,
+        dashboardcomponent: Dashboard,
+        RenderComponent: Default
+    },
     {
         name: RouteNames.DASHBOARD,
         path: RouteUrls.DASHBOARD,
