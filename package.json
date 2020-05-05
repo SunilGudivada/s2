@@ -17,7 +17,6 @@
     "clsx": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-material-timeline": "^3.0.1",
     "react-router-dom": "latest",
     "react-scripts": "latest"
   },
