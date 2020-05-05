@@ -12,6 +12,12 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function Copyright() {
   return (
@@ -61,16 +67,28 @@ export default function SignIn() {
   const classes = useStyles();
   const [email,setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [messageContent,setMessageContent] = React.useState("");
+  const [displayMessage, setDisplayMessage] = React.useState(false);
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'right',
+  });
+
+  const { vertical, horizontal } = state;
+  
   const validateSignInDetails = () =>{
     if(email && email === "demo@s3.io"){
       if(password === "demo"){
         localStorage.setItem("user","132416");
         window.location.reload();
       }else{
-
+        setMessageContent("Please check your password");
+        setDisplayMessage(true);
       }
     }else{
-
+      setMessageContent("Please Enter Valid Email Id");
+      setDisplayMessage(true);
     }
   }
 
@@ -81,6 +99,14 @@ export default function SignIn() {
   const handlePassword = (event) =>{
     setPassword(event.target.value)
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setState({ ...state });
+    setDisplayMessage(false);
+  };
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -156,6 +182,13 @@ export default function SignIn() {
           </form>
         </div>
       </Grid>
+      <Snackbar open={displayMessage} autoHideDuration={4000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }}
+        key={`${vertical},${horizontal}`}
+>
+        <Alert onClose={handleClose} severity="error">
+          {messageContent}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 }

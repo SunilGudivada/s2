@@ -15,44 +15,74 @@ import Switch from '@material-ui/core/Switch';
 import Box from '@material-ui/core/Box';
 import SimpleDialogDemo from '../Modal/AddDataSourceModal'
 import { Typography } from '@material-ui/core';
+import { grey } from '@material-ui/core/colors';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-function createData(entity, username, password, jdbcurl) {
-    return { entity, username, password, jdbcurl };
+function createData(entity, username, password, jdbcurl, active, dFlag) {
+    return { entity, username, password, jdbcurl, active, dFlag };
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 650,
     },
-});
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+      },
+}));
 const rows = [
-    createData('Database 1', 'username 1', '********', 'jdbc:db2:hostname:port Number/databaseName', 'A'),
-    createData('Database 2', 'username 2', '********', 'SourceColumnMapping.csv', 'A'),
-    createData('Database 3', 'username 3', '********', 'jdbc:db2:hostname:port Number/databaseName', 'A'),
-    createData('Database 4', 'username 4', '********', 'jdbc:db2:hostname:port Number/databaseName', 'X'),
-    createData('Database 5', 'username 5', '********', 'jdbc:db2:hostname:port Number/databaseName', 'X'),
+    createData('Database 1', 'username 1', '********', 'jdbc:db2:hostname:port Number/databaseName', 'A','A'),
+    createData('Database 4', 'username 4', '********', 'SourceColumnMapping.csv', 'A','A'),
+    createData('Database 3', 'username 3', '********', 'jdbc:db2:hostname:port Number/databaseName', 'A','A'),
+    createData('Database 2', 'username 2', '********', 'jdbc:db2:hostname:port Number/databaseName', 'X','A'),
+    createData('Database 5', 'username 5', '********', 'jdbc:db2:hostname:port Number/databaseName', 'X','A'),
 ];
 
+function reducer(state,action){
+
+    let currentDataSources = [...state];
+    let index = 99999999;
+    switch(action.type){
+        case 'add':
+            return [...currentDataSources, action.value];
+        case "updateActiveStatus":
+            index = currentDataSources.findIndex(element => element.entity === action.value);
+            currentDataSources[index].active = currentDataSources[index].active === 'A' ? 'X': 'A';
+            return currentDataSources;
+        case "delete":
+            index = currentDataSources.findIndex(element => element.entity === action.value);
+            currentDataSources[index].dFlag = 'X';
+            return currentDataSources;
+        default:
+            return currentDataSources.filter(element => element.dFlag !== 'X');
+    }
+}
 
 export default function DataSource() {
     const classes = useStyles();
-    const [state, setState] = React.useState({
-        checkedA: true,
-        checkedB: true,
-    });
 
-    const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-    };
+    // const [availableDataSources, setAvailableDataSources] = React.useState([]);
 
+    const [availableDataSources, dispatch] = React.useReducer(reducer, rows);
+    const [loader, setLoader] = React.useState(false);
+
+    // React.useEffect(()=>{
+    //     setAvailableDataSources(data);
+    // },[availableDataSources])
+
+    
     return (<>
-        
+        <Backdrop className={classes.backdrop} open={loader}>
+            <CircularProgress color="inherit" />
+        </Backdrop>
         <Typography component={'span'} variant={'body2'}>
             <Box textAlign="center" m={1} fontSize="h5.fontSize" style={{fontWeight: 'bold'}}>
                 Data Sources Definitions
             </Box>
         </Typography>
-        <SimpleDialogDemo />
+        <SimpleDialogDemo/>
         <Typography component={'span'} variant={'body2'}>
             <Box textAlign="center" m={1} fontSize="h5.fontSize" style={{fontWeight: 'bold'}}>
                 Available Data Sources
@@ -71,8 +101,37 @@ export default function DataSource() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                {availableDataSources.filter(data => data.active === 'A' && data.dFlag === 'A').map((row) => (
                         <TableRow key={row.entity} style={{ height: 15 }}>
+
+                            <TableCell component="th">
+                                {row.entity}
+                            </TableCell>
+                            <TableCell >{row.username}</TableCell>
+                            <TableCell >{row.password}</TableCell>
+                            <TableCell >{row.jdbcurl}</TableCell>
+                            <TableCell align="right">
+                                <IconButton aria-label="comments" >
+                                    <Edit />
+                                </IconButton>
+                                <IconButton aria-label="comments"  onClick={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);dispatch({ type: "delete", value: row.entity });  }}>
+                                    <DeleteSweep />
+                                </IconButton>
+                                <FormControlLabel control={
+                                    <Switch
+                                        checked={true}
+                                        onChange={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);dispatch({ type: "updateActiveStatus", value: row.entity });  }}
+                                        name={row.entity}
+                                        color="primary"
+                                    />
+                                } style={{ margin: '2px' }}
+                                />
+                            </TableCell>
+                        </TableRow>
+                    ))}
+
+                    {availableDataSources.filter(data => data.active === 'X' && data.dFlag === 'A').map((row) => (
+                        <TableRow key={row.entity} style={{ height: 15, backgroundColor:grey[300] }}>
 
                             <TableCell component="th">
                                 {row.entity}
@@ -84,14 +143,14 @@ export default function DataSource() {
                                 <IconButton aria-label="comments">
                                     <Edit />
                                 </IconButton>
-                                <IconButton aria-label="comments">
+                                <IconButton aria-label="comments"  onClick={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);dispatch({ type: "delete", value: row.entity });  }}>
                                     <DeleteSweep />
                                 </IconButton>
                                 <FormControlLabel control={
                                     <Switch
-                                        checked={state.checked}
-                                        onChange={handleChange}
-                                        name="checkedB"
+                                        checked={false}
+                                        onChange={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);dispatch({ type: "updateActiveStatus", value: row.entity });  }}
+                                        name={row.entity}
                                         color="primary"
                                     />
                                 } style={{ margin: '2px' }}
