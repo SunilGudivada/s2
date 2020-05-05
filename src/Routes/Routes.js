@@ -21,9 +21,12 @@ class Routes extends React.Component {
               JSON.parse(localStorage.getItem("user"));
             const combinedProps = { ...rest, ...props };
             
+            if(combinedProps.name === "SIGN_UP" && !user){
+              return <combinedProps.component />
+            }
 
             if(user){
-                if(combinedProps.name === "SIGN_IN"){
+                if(combinedProps.name === "SIGN_IN" || combinedProps.name === "SIGN_UP"){
                     window.location.assign("#/dashboard");
                     window.location.reload();
                 }else{
