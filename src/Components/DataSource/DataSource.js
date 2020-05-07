@@ -18,6 +18,10 @@ import { Typography } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
+import Cancel from '@material-ui/icons/Cancel';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import Button from '@material-ui/core/Button';
 
 function createData(entity, username, password, jdbcurl, active, dFlag) {
     return { entity, username, password, jdbcurl, active, dFlag };
@@ -31,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
       },
+    tablecell: {
+        padding:'5px',
+    }
 }));
 const rows = [
     createData('Database 1', 'username 1', '********', 'jdbc:db2:hostname:port Number/databaseName', 'A','A'),
@@ -72,6 +79,11 @@ export default function DataSource() {
     //     setAvailableDataSources(data);
     // },[availableDataSources])
 
+    const [editDataSource,setEditDataSource] = React.useState('');
+    const [userName,setUserName] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [jdbcurl, setJdbcurl] = React.useState('');
+    // const [type,setTypeValue] = React.useState('');
     
     return (<>
         <Backdrop className={classes.backdrop} open={loader}>
@@ -107,14 +119,28 @@ export default function DataSource() {
                             <TableCell component="th">
                                 {row.entity}
                             </TableCell>
-                            <TableCell >{row.username}</TableCell>
-                            <TableCell >{row.password}</TableCell>
-                            <TableCell >{row.jdbcurl}</TableCell>
-                            <TableCell align="right">
-                                <IconButton aria-label="comments" >
+                            <TableCell className={classes.tablecell}> {editDataSource === row.entity ? (<TextField size="small" id="outlined-basic" label="Username" variant="outlined" value={userName}/>): ( row.username)} </TableCell>
+                            <TableCell className={classes.tablecell}>{editDataSource === row.entity ? (<TextField size="small" id="outlined-basic" label="Password" variant="outlined" value={password}/>): ( row.password)} </TableCell>
+                            <TableCell className={classes.tablecell}>
+                                {editDataSource === row.entity ?
+                                    (<>
+                                        <TextField size="small" id="outlined-basic" label="JDBC Url" variant="outlined" value={jdbcurl}/>
+                                        <Button href="/" style={{padding: '7px', marginLeft:'3px'}} color="primary" size="small" onClick={(event)=>event.preventDefault()} className={classes.addDataSourceForm}> Test Connection </Button></>
+                                    ): ( row.jdbcurl)} </TableCell>
+                            <TableCell align="right" className={classes.tablecell}>
+                            {editDataSource === row.entity ?(<>
+                                 <IconButton aria-label="save" style={{color: 'green'}} onClick={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);setEditDataSource('');}}>
+                                 <CheckCircle />
+                             </IconButton>
+                             <IconButton aria-label="cancel"  style={{color: 'red'}}  onClick={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);setEditDataSource('');}}>
+                                 <Cancel />
+                             </IconButton>
+                             </>
+                            ): (<>
+                                <IconButton aria-label="edit" onClick={()=>{setEditDataSource(row.entity);setUserName(row.username); setPassword(row.password); setJdbcurl(row.jdbcurl)}} >
                                     <Edit />
                                 </IconButton>
-                                <IconButton aria-label="comments"  onClick={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);dispatch({ type: "delete", value: row.entity });  }}>
+                                <IconButton aria-label="delete"  onClick={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);dispatch({ type: "delete", value: row.entity });  }}>
                                     <DeleteSweep />
                                 </IconButton>
                                 <FormControlLabel control={
@@ -125,7 +151,7 @@ export default function DataSource() {
                                         color="primary"
                                     />
                                 } style={{ margin: '2px' }}
-                                />
+                                /></>)}
                             </TableCell>
                         </TableRow>
                     ))}
@@ -136,13 +162,20 @@ export default function DataSource() {
                             <TableCell component="th">
                                 {row.entity}
                             </TableCell>
-                            <TableCell >{row.username}</TableCell>
-                            <TableCell >{row.password}</TableCell>
-                            <TableCell >{row.jdbcurl}</TableCell>
-                            <TableCell align="right">
-                                <IconButton aria-label="comments">
-                                    <Edit />
-                                </IconButton>
+                            <TableCell className={classes.tablecell}>{row.username}</TableCell>
+                            <TableCell className={classes.tablecell}>{row.password}</TableCell>
+                            <TableCell className={classes.tablecell}>{row.jdbcurl}</TableCell>
+                            <TableCell align="right" className={classes.tablecell}>
+
+                            {editDataSource === row.entity ?(<>
+                                <IconButton aria-label="save" style={{color: 'green'}} onClick={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);setEditDataSource('');}}>
+                                 <CheckCircle />
+                             </IconButton>
+                             <IconButton aria-label="cancel"  style={{color: 'red'}}  onClick={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);setEditDataSource('');}}>
+                                 <Cancel />
+                             </IconButton>
+                             </>
+                            ): (<>
                                 <IconButton aria-label="comments"  onClick={()=>{setLoader(true);setInterval(() => {setLoader(false);}, 2000);dispatch({ type: "delete", value: row.entity });  }}>
                                     <DeleteSweep />
                                 </IconButton>
@@ -154,7 +187,8 @@ export default function DataSource() {
                                         color="primary"
                                     />
                                 } style={{ margin: '2px' }}
-                                />
+                                /></>)}
+                                
                             </TableCell>
                         </TableRow>
                     ))}
